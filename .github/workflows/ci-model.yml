@@ -42,4 +42,6 @@ jobs:
 
       # Step 5: Register the best model in Comet
       - name: Register best model in Comet
+        env:
+            COMET_API_KEY: ${{ secrets.COMET_API_KEY }}
         run: python register_model.py
