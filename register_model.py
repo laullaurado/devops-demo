@@ -12,7 +12,9 @@ experiment = APIExperiment(workspace=WORKSPACE, project_name=PROJECT_NAME)
 def register_model(model_name, accuracy):
     
     # Register the model in Comet Model Registry
-    registered_model = experiment.register_model(model_name=model_name, version="1.0.0", workspace=WORKSPACE, registry_name="devops-demo")
+    # registered_model = experiment.register_model(model_name=model_name, version="1.0.0", registry_name="devops-demo")
+
+    experiment.register_model(model_name=model_name, version="1.0.0", registry_name="devops-demo")
     
     # Add a version with metadata
     # registered_model.add_version(
