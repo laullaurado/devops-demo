@@ -14,7 +14,7 @@ def register_model(model_name, accuracy):
     # Register the model in Comet Model Registry
     # registered_model = experiment.register_model(model_name=model_name, version="1.0.0", registry_name="devops-demo")
 
-    experiment.register_model(model_name=model_name, version="1.0.0", registry_name="devops-demo")
+    experiment.register_model(model_name=model_name, version="1.0.0")
     
     # Add a version with metadata
     # registered_model.add_version(
