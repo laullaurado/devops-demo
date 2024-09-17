@@ -27,20 +27,24 @@ def register_model(model_name, accuracy):
 
 
 def compare_and_register_best_model():
-    # Read model accuracies
-    with open("logistic_regression_accuracy.txt", "r") as f:
-        logistic_regression_accuracy = float(f.read().strip())
+    # Read model metrics
+    metrics = {}
+    for model_name in ["logistic_regression", "random_forest"]:
+        with open(f"{model_name}_accuracy.txt", "r") as f:
+            accuracy = float(f.read().strip())
+        metrics[model_name] = {'accuracy': accuracy}
 
-    with open("random_forest_accuracy.txt", "r") as f:
-        random_forest_accuracy = float(f.read().strip())
+        # Optionally add more metrics if saved separately
 
-    # Compare models and register the one with higher accuracy
-    if logistic_regression_accuracy > random_forest_accuracy:
-        register_model("logistic_regression", logistic_regression_accuracy)
-    else:
-        register_model("random_forest", random_forest_accuracy)
+    # Find the best model
+    best_model_name = max(metrics, key=lambda k: metrics[k]['accuracy'])
+    best_accuracy = metrics[best_model_name]['accuracy']
+
+    # Register the best model
+    register_model(best_model_name, best_accuracy)
+
+    print(f"Best model is {best_model_name} with accuracy {best_accuracy}")
 
 
-# Call the comparison and registration function
 if __name__ == "__main__":
     compare_and_register_best_model()
