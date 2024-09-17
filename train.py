@@ -9,22 +9,27 @@ from sklearn.metrics import accuracy_score
 import joblib
 
 # Initialize the Comet experiment
+
+
 def init_comet_experiment():
     experiment = comet_ml.Experiment(
-    api_key=os.getenv("COMET_API_KEY"),
-    project_name="devops-demo",
-    workspace="laullaurado",
-    log_env_details=False,  # Disable logging of environment details
-    log_git_metadata=False,  # Disable git metadata logging
-)
+        api_key=os.getenv("COMET_API_KEY"),
+        project_name="devops-demo",
+        workspace="laullaurado",
+        log_env_details=False,  # Disable logging of environment details
+        log_git_metadata=False,  # Disable git metadata logging
+    )
 
     return experiment
 
 # Train a model using Logistic Regression or Random Forest
+
+
 def train_model(model_type):
     # Load the Iris dataset
     data = load_iris()
-    X_train, X_test, y_train, y_test = train_test_split(data.data, data.target, test_size=0.2, random_state=42)
+    X_train, X_test, y_train, y_test = train_test_split(
+        data.data, data.target, test_size=0.2, random_state=42)
 
     # Select the model type
     if model_type == "logistic_regression":
@@ -43,10 +48,12 @@ def train_model(model_type):
 
     return model, accuracy
 
+
 if __name__ == "__main__":
     # Argument parsing
     parser = argparse.ArgumentParser()
-    parser.add_argument('--model', type=str, required=True, help="Model type (logistic_regression or random_forest)")
+    parser.add_argument('--model', type=str, required=True,
+                        help="Model type (logistic_regression or random_forest)")
     args = parser.parse_args()
 
     # Initialize Comet experiment
