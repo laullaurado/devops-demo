@@ -12,8 +12,8 @@ import os
 def init_comet_experiment():
     experiment = comet_ml.Experiment(
         api_key=os.getenv("COMET_API_KEY"),  # Fetch API key from environment variable
-        project_name="sklearn-model-comparison",  # Name of the project in Comet
-        workspace="your-workspace"  # Your workspace in Comet
+        project_name="devops-demo",  # Name of the project in Comet
+        workspace="laullaurado"  # Your workspace in Comet
     )
     return experiment
 
