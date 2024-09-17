@@ -31,13 +31,12 @@ jobs:
         run: |
           python train.py --model logistic_regression
 
-      - name: Upload Logistic Regression artifacts
+      - name: Upload logistic_regression_accuracy.txt and model as artifacts
         uses: actions/upload-artifact@v4
         with:
           name: logistic_regression_artifacts
           path: |
             logistic_regression_accuracy.txt
-            logistic_regression_confusion_matrix.png
             models/logistic_regression.pkl
 
   train_random_forest:
@@ -62,13 +61,12 @@ jobs:
         run: |
           python train.py --model random_forest
 
-      - name: Upload Random Forest artifacts
+      - name: Upload random_forest_accuracy.txt and model as artifacts
         uses: actions/upload-artifact@v4
         with:
           name: random_forest_artifacts
           path: |
             random_forest_accuracy.txt
-            random_forest_confusion_matrix.png
             models/random_forest.pkl
 
   register_models:

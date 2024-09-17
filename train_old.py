@@ -5,10 +5,8 @@ from sklearn.datasets import load_iris
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_score, confusion_matrix
+from sklearn.metrics import accuracy_score
 import joblib
-import matplotlib.pyplot as plt
-import seaborn as sns
 
 # Initialize the Comet experiment
 
@@ -21,23 +19,8 @@ def init_comet_experiment():
         log_env_details=False,  # Disable logging of environment details
         log_git_metadata=False,  # Disable git metadata logging
     )
+
     return experiment
-
-# Plot and save confusion matrix
-
-
-def plot_confusion_matrix(cm, model_type):
-    plt.figure(figsize=(10, 7))
-    sns.heatmap(cm, annot=True, fmt='d', cmap='Blues',
-                xticklabels=['Setosa', 'Versicolor', 'Virginica'],
-                yticklabels=['Setosa', 'Versicolor', 'Virginica'])
-    plt.xlabel('Predicted')
-    plt.ylabel('Actual')
-    plt.title(f'Confusion Matrix for {model_type}')
-    plt.savefig(f"{model_type}_confusion_matrix.png")
-    plt.close()
-
-    return f"{model_type}_confusion_matrix.png"
 
 # Train a model using Logistic Regression or Random Forest
 
@@ -62,15 +45,8 @@ def train_model(model_type):
     # Predict and evaluate
     predictions = model.predict(X_test)
     accuracy = accuracy_score(y_test, predictions)
-    precision = precision_score(y_test, predictions, average='weighted')
-    recall = recall_score(y_test, predictions, average='weighted')
-    f1 = f1_score(y_test, predictions, average='weighted')
-    cm = confusion_matrix(y_test, predictions)
 
-    # Plot confusion matrix
-    cm_image_path = plot_confusion_matrix(cm, model_type)
-
-    return model, accuracy, precision, recall, f1, cm_image_path
+    return model, accuracy
 
 
 if __name__ == "__main__":
@@ -84,15 +60,10 @@ if __name__ == "__main__":
     experiment = init_comet_experiment()
 
     # Train the model and get performance metrics
-    model, accuracy, precision, recall, f1, cm_image_path = train_model(
-        args.model)
+    model, accuracy = train_model(args.model)
 
     # Log metrics to Comet
     experiment.log_metric("accuracy", accuracy)
-    experiment.log_metric("precision", precision)
-    experiment.log_metric("recall", recall)
-    experiment.log_metric("f1_score", f1)
-    experiment.log_image(cm_image_path, name=f"{args.model}_confusion_matrix")
 
     # Ensure the models/ directory exists
     if not os.path.exists("models"):
