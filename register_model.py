@@ -1,22 +1,24 @@
-from comet_ml import API
+from comet_ml.api import API, APIExperiment
 import os
 
+WORKSPACE = "laullaurado"
+PROJECT_NAME = "devops-demo"
 # Initialize Comet API
 api = API(api_key=os.getenv("COMET_API_KEY"))
 
+experiment = APIExperiment(workspace=WORKSPACE, project_name=PROJECT_NAME)
+
 # Register the model
 def register_model(model_name, accuracy):
-    workspace = "laullaurado"
-    project_name = "devops-demo"
     
     # Register the model in Comet Model Registry
-    registered_model = api.register_model(workspace=workspace, model_name=model_name)
+    registered_model = experiment.register_model(model_name=model_name, version="1.0.0", workspace=WORKSPACE, registry_name="devops-demo")
     
     # Add a version with metadata
-    registered_model.add_version(
-        model_path=f"models/{model_name}.pkl",  # Path to your saved model
-        metadata={"accuracy": accuracy}
-    )
+    # registered_model.add_version(
+    #     model_path=f"models/{model_name}.pkl",  # Path to your saved model
+    #     metadata={"accuracy": accuracy}
+    # )
 
 # Compare and register best model
 def compare_and_register_best_model():
