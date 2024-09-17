@@ -22,10 +22,10 @@ def register_model(model_name, accuracy):
 def compare_and_register_best_model():
     # Read accuracies of both models
     with open("logistic_regression_accuracy.txt", "r") as f:
-        logistic_regression_accuracy = float(f.read())
-    
+        logistic_regression_accuracy = float(f.read().strip())
+
     with open("random_forest_accuracy.txt", "r") as f:
-        random_forest_accuracy = float(f.read())
+        random_forest_accuracy = float(f.read().strip())
 
     # Compare the models
     if logistic_regression_accuracy > random_forest_accuracy:
