@@ -9,6 +9,9 @@ on:
       - main
 
 jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30  # Increase this value if your workflow might take longer
   train_and_register:
     runs-on: ubuntu-latest
     strategy:

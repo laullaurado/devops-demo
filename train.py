@@ -11,10 +11,13 @@ import joblib
 # Initialize the Comet experiment
 def init_comet_experiment():
     experiment = comet_ml.Experiment(
-        api_key=os.getenv("COMET_API_KEY"),  # Fetch API key from environment variable
-        project_name="devops-demo",  # Name of the project in Comet
-        workspace="laullaurado"  # Your workspace in Comet
-    )
+    api_key=os.getenv("COMET_API_KEY"),
+    project_name="devops-demo",
+    workspace="laullaurado",
+    log_env_details=False,  # Disable logging of environment details
+    log_git_metadata=False,  # Disable git metadata logging
+)
+
     return experiment
 
 # Train a model using Logistic Regression or Random Forest
