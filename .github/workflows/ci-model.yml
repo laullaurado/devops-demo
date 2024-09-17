@@ -32,7 +32,7 @@ jobs:
           python train.py --model logistic_regression
 
       - name: Upload logistic_regression_accuracy.txt as artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: logistic_regression_accuracy
           path: logistic_regression_accuracy.txt
@@ -60,7 +60,7 @@ jobs:
           python train.py --model random_forest
 
       - name: Upload random_forest_accuracy.txt as artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: random_forest_accuracy
           path: random_forest_accuracy.txt
@@ -85,13 +85,13 @@ jobs:
           pip install -r requirements.txt
 
       - name: Download Logistic Regression accuracy artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: logistic_regression_accuracy
           path: .
 
       - name: Download Random Forest accuracy artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: random_forest_accuracy
           path: .
