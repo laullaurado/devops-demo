@@ -1,3 +1,4 @@
+import os
 import argparse
 import comet_ml
 from sklearn.datasets import load_iris
@@ -6,7 +7,6 @@ from sklearn.linear_model import LogisticRegression
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 import joblib
-import os
 
 # Initialize the Comet experiment
 def init_comet_experiment():
@@ -54,6 +54,10 @@ if __name__ == "__main__":
 
     # Log metrics to Comet
     experiment.log_metric("accuracy", accuracy)
+
+    # Ensure the models/ directory exists
+    if not os.path.exists("models"):
+        os.makedirs("models")
 
     # Save the model to disk using joblib
     joblib.dump(model, f"models/{args.model}.pkl")
